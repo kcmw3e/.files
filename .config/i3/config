@@ -1,0 +1,443 @@
+# Casey Walker's i3 config
+# 
+# For a full reference to the i3 config, see the link below:
+#   https://i3wm.org/docs/userguide.html
+# ------------------------------------------------------------------------------------------------ #
+
+
+
+# [Worskpaces]
+# ------------------------------------------------------------------------------------------------ #
+# These are names for the numbered workspaces, which are default. The key bindings to switch to them
+# are configured in the [Key bindings] section below.
+set $ws1   1
+set $ws2   2
+set $ws3   3
+set $ws4   4
+set $ws5   5
+set $ws6   6
+set $ws7   7
+set $ws8   8
+set $ws9   9
+set $ws10 10
+
+
+
+# [Key bindings]
+# ------------------------------------------------------------------------------------------------ #
+# Mod4 is the <Super> (<Meta>, <Windows>) key, some people use <Alt> which is Mod1
+# Also note that most people probably use $mod instead of $sup, but $sup seems to make more sense to
+# me, probably because I come from environments that use that terminology and I am internally making
+# a connection between the functionalities of those environments to how i3 works.
+set $sup Mod4
+
+# These are for shorthanding other keys because I'm lazy, and also, in the case of <Shift> and other
+# named keys because, I want it to be case-consistent.
+set $alt       Mod1
+set $ctrl      Control
+set $shift     Shift
+set $down      Down
+set $up        Up
+set $left      Left
+set $right     Right
+set $tab       Tab
+set $space     space
+set $return    Return
+set $backspace BackSpace
+set $esc       Escape
+
+set $f1  F1
+set $f2  F2
+set $f3  F3
+set $f4  F4
+set $f5  F5
+set $f6  F6
+set $f7  F7
+set $f8  F8
+set $f9  F9
+set $f10 F10
+set $f11 F11
+set $f12 F12
+
+# This is the movement modifier key, which is by default <Shift>
+set $move Shift
+
+
+# This key bind starts a terminal. Note that by default this is $mod+Return, but I prefer the one
+# below, again likely from using other environments first. Also, the default terminal is
+# i3-sensible-terminal, which I have mixed feelings about.
+bindsym $ctrl+$alt+T exec /usr/bin/kitty
+
+
+# The default launcher is dmenu, but I prefer rofi because it automatically detects flatpak apps and
+# is a bit nicer/more modern. The default keybind is $mod+d, but after using MacOS a bit, I have
+# found <Space> is more intuitive to me.
+bindsym $sup+$space exec "rofi -modi drun,run -show drun"
+
+
+# For changing focus, I prefer the arrow keys, at least while I'm still getting used to using the
+# keyboard more, but as a backup I like the VIM keybinds more than the default, which are:
+#   J K L <Semicolon> as opposed to the VIM-like H J K L
+# This is probably beause I like to shift both of my hands over and keep my left hand on:
+#   <Shift> A S D <Space>
+bindsym $sup+$up    focus up
+bindsym $sup+$left  focus left
+bindsym $sup+$down  focus down
+bindsym $sup+$right focus right
+
+bindsym $sup+h focus left
+bindsym $sup+j focus down
+bindsym $sup+k focus up
+bindsym $sup+l focus right
+
+# I'm also used to gaming with W A S D, which are analagous to arrow keys in my mind, so I allow
+# those for directional things as well. Plus, it lets me use one hand for navigation if I just have
+# one available (i.e. the other is on the mouse).
+bindsym $sup+w focus up
+bindsym $sup+a focus left
+bindsym $sup+s focus down
+bindsym $sup+d focus right
+
+# This keybind focuses the parent container. The default is $mod+a. Since I use that for movement,
+# and because I think this one makes more sense, I use it instead.
+bindsym $sup+p focus parent
+
+# This keybind is commented out by default and is $mod+d, which conflicts with the default drun
+# binding (and my movement). It's used for focusing the child container (the last focused child).
+bindsym $sup+c focus child
+
+
+# These bindings are for resizing without entering a new mode. The default requires pressing $mod+r
+# in order to enter the resizing mode, but I found it a bit annoying to have to enter a mode every
+# time I needed a resize. These bindings use the same keys I use for navigation, with the same
+# alternate options.
+bindsym $sup+$alt+$up    resize grow   height 15 px or 1 ppt
+bindsym $sup+$alt+$left  resize shrink width  15 px or 1 ppt
+bindsym $sup+$alt+$down  resize shrink height 15 px or 1 ppt
+bindsym $sup+$alt+$right resize grow   width  15 px or 1 ppt
+
+bindsym $sup+$alt+h resize grow   height 15 px or 1 ppt
+bindsym $sup+$alt+j resize shrink width  15 px or 1 ppt
+bindsym $sup+$alt+k resize shrink height 15 px or 1 ppt
+bindsym $sup+$alt+l resize grow   width  15 px or 1 ppt
+
+bindsym $sup+$alt+w resize grow   height 15 px or 1 ppt
+bindsym $sup+$alt+a resize shrink width  15 px or 1 ppt
+bindsym $sup+$alt+s resize shrink height 15 px or 1 ppt
+bindsym $sup+$alt+d resize grow   width  15 px or 1 ppt
+
+
+# Now for moving windows, it's the exact same as movement but with <Shift> held. This is the
+# default way of doing it as well (but with the default keybinds as opposed to mine).
+bindsym $sup+$move+$up    move up
+bindsym $sup+$move+$left  move left
+bindsym $sup+$move+$down  move down
+bindsym $sup+$move+$right move right
+
+bindsym $sup+$move+h move left
+bindsym $sup+$move+j move down
+bindsym $sup+$move+k move up
+bindsym $sup+$move+l move right
+
+bindsym $sup+$move+w move up
+bindsym $sup+$move+a move left
+bindsym $sup+$move+s move down
+bindsym $sup+$move+d move right
+
+# This is a typical Linux desktop trick, and is default, that allows moving a window by clicking
+# anywhere on the window when holding a particular key (in my case $sup, by default $mod). Note
+# that it only applies to floating windows for free movement, but does allow moving tiled windows
+# around in their tiled configuration.
+floating_modifier $sup
+
+
+# These keybinds are for working with workspaces. They are default (with the exception of 
+# my $sup instead of the typical $mod).
+
+# These move the focus.
+bindsym $sup+1 workspace number $ws1
+bindsym $sup+2 workspace number $ws2
+bindsym $sup+3 workspace number $ws3
+bindsym $sup+4 workspace number $ws4
+bindsym $sup+5 workspace number $ws5
+bindsym $sup+6 workspace number $ws6
+bindsym $sup+7 workspace number $ws7
+bindsym $sup+8 workspace number $ws8
+bindsym $sup+9 workspace number $ws9
+bindsym $sup+0 workspace number $ws10
+
+# These move containers, similar to the above but between workspaces.
+bindsym $sup+$move+1 move container to workspace number $ws1
+bindsym $sup+$move+2 move container to workspace number $ws2
+bindsym $sup+$move+3 move container to workspace number $ws3
+bindsym $sup+$move+4 move container to workspace number $ws4
+bindsym $sup+$move+5 move container to workspace number $ws5
+bindsym $sup+$move+6 move container to workspace number $ws6
+bindsym $sup+$move+7 move container to workspace number $ws7
+bindsym $sup+$move+8 move container to workspace number $ws8
+bindsym $sup+$move+9 move container to workspace number $ws9
+bindsym $sup+$move+0 move container to workspace number $ws10
+
+# These bindings are not standard, but I like them for switching between workspaces without having
+# to use the number keys, and they provide *similar* functionality to the typical <Alt>+<Tab>.
+bindsym $sup+$ctrl+$left  workspace prev_on_output
+bindsym $sup+$ctrl+$right workspace next_on_output
+
+bindsym $sup+$ctrl+a workspace prev_on_output
+bindsym $sup+$ctrl+d workspace next_on_output
+
+bindsym $sup+$ctrl+h workspace prev_on_output
+bindsym $sup+$ctrl+l workspace next_on_output
+
+# These allow moving containers like the above <Alt>+<Tab>-style bindings.
+bindsym $sup+$ctrl+$move+$left  move container to workspace prev_on_output
+bindsym $sup+$ctrl+$move+$right move container to workspace next_on_output
+
+bindsym $sup+$ctrl+$move+a move container to workspace prev_on_output
+bindsym $sup+$ctrl+$move+d move container to workspace next_on_output
+
+bindsym $sup+$ctrl+$move+h move container to workspace prev_on_output
+bindsym $sup+$ctrl+$move+l move container to workspace next_on_output
+
+# These bindings are for more <Alt>+<Tab>-like behavior, but can sadly only work with two
+# workspaces that I've been able to figure out.
+bindsym $sup+$tab workspace back_and_forth
+bindsym $sup+$move+$tab move container to workspace back_and_forth
+
+# This keybind is default with the exception of my $sup binding, for making the focused window
+# fullscreen.
+bindsym $sup+f fullscreen toggle
+
+# This binding is also default and is used for killing the focused window.
+bindsym $sup+$shift+q kill
+
+
+# These key bindings are for changing the tiling mode. None of them are default because I didn't
+# think the default was intuitive (to be honest I think the only intuitive one of mine is the tab
+# mode, but I wanted to keep them grouped together on the keyboard). The defaults are:
+# $mod+w, $mod+s, $mod+e, respectively.
+#   t for [t]abbed
+#   y for stack, because y is right next to t, which make it stacking, right?
+#   r for [r]otate, which is similar to toggling the spit (i.e. rotation of the split)
+bindsym $sup+t layout tabbed
+bindsym $sup+y layout stacking
+bindsym $sup+r layout toggle split
+# Also, note that the default uses $mod+r for entering resize mode, so this would conflict with it.
+
+# These split vertical and horizontal, respectively. Vertical is default, but horizontal is not.
+# Default horizontal is $mod+h, but I use that for movement because of VIM, so I use the one below
+# instead because it's close to v, like how y is close to t.
+bindsym $sup+v split v
+bindsym $sup+b split h
+
+
+# The default key for floating is <space>, but I use that key for running rofi, so instead I use
+# this one, which I also think makes more sense. Note that the default switches which binding uses
+# the <Shift> key (in my case $move), which I thought was confusing.
+
+# backspace because it's like removing the window from the tiling system (e.g. floating it)
+bindsym $sup+$move+$backspace floating toggle
+
+# changes focus between floating and tiled windows
+bindsym $sup+$backspace focus mode_toggle
+
+
+# These bindings are for dealing closer to the i3 system itself.
+
+# To reload the configuration file, the default is $mod+Shift+c. I use f5 because it's a common
+# method of reloading things in other applications.
+bindsym $sup+$f5 reload
+
+# To restart i3 in-place, the default is $mod+Shift+r. Again I use f5 since it's like reloading, and
+# <Control> feels like the right modifier from reload (I don't use $move here because it doesn't
+# really make much sense).
+bindsym $sup+$ctrl+$f5 restart
+
+# To exit i3 (and log out of X session), the default is $mod+Shift+e, which I think makes sense,
+# but I like this more because it feels in-line with the closing of widnows. Note that for now I've
+# left in the confirm message, but I might remove it or change this command at some point. For
+# reference in case I change it and forget to write what the default was (with a shorter message):
+# `exec "                        \
+#   i3-nagbar -t warning         \
+#   -m 'Exit i3?'                \
+#   -B 'Yes, exit.' 'i3-msg exit'\
+#  "`
+bindsym $sup+$ctrl+q exec "      \
+    i3-nagbar -t warning         \
+    -m 'Exit i3?'                \
+    -B 'Yes, exit.' 'i3-msg exit'\
+"
+
+
+
+# [Modes]
+# ------------------------------------------------------------------------------------------------ #
+# This mode is essentially all of my most-used normal bindings without the requirement of using the
+# $mod key. It's basically a convenience for when I know I'm going to be navigating around a bunch
+# and not actually interacting with the windows, or if I need to do a bunch of rearranging/resizing.
+mode "window-ctrl" {
+    bindsym $up    focus up
+    bindsym $left  focus left
+    bindsym $down  focus down
+    bindsym $right focus right
+
+    bindsym w focus up
+    bindsym a focus left
+    bindsym s focus down
+    bindsym d focus right
+
+
+    bindsym $alt+$up    resize grow height 15 px or 1 ppt
+    bindsym $alt+$left  resize shrink width 15 px or 1 ppt
+    bindsym $alt+$down  resize shrink height 15 px or 1 ppt
+    bindsym $alt+$right resize grow width 15 px or 1 ppt
+
+    bindsym $alt+w resize grow   height 15 px or 1 ppt
+    bindsym $alt+a resize shrink width  15 px or 1 ppt
+    bindsym $alt+s resize shrink height 15 px or 1 ppt
+    bindsym $alt+d resize grow   width  15 px or 1 ppt
+
+
+    bindsym $move+$up    move up
+    bindsym $move+$left  move left
+    bindsym $move+$down  move down
+    bindsym $move+$right move right
+
+    bindsym $shift+w move up
+    bindsym $shift+a move left
+    bindsym $shift+s move down
+    bindsym $shift+d move right
+
+
+    bindsym $ctrl+$left  workspace prev_on_output
+    bindsym $ctrl+$right workspace next_on_output
+
+    bindsym $ctrl+a workspace prev_on_output
+    bindsym $ctrl+d workspace next_on_output
+
+
+    bindsym $esc mode "default"
+    bindsym $sup+$esc mode "default"
+}
+
+bindsym $sup+$esc mode "window-ctrl"
+
+
+
+# [Display/Aesthetics]
+# ------------------------------------------------------------------------------------------------ #
+
+# This sets the font used in various places (such as title bars). DejaVu is one of my favorites.
+font pango:DejaVu Sans Mono 8
+
+
+# This is the 16-color palette I use. It's similar to how most terminal emulators let you set
+# colors, but instead of a light+dark for named colors I'm just doing shades of gray and one shade
+# of named colors.
+
+# These are the grayscale colors.
+set $color-black #0d0d0d
+set $color-gray0 #202020
+set $color-gray1 #333333
+set $color-gray2 #424242
+set $color-gray3 #878787
+set $color-gray4 #c0c0c0
+set $color-gray5 #eeeeee
+set $color-white #f4f4f4
+
+# These are the named colors.
+set $color-red    #c04242
+set $color-orange #dd8769
+set $color-yellow #f4c087
+set $color-green  #a1c087
+set $color-cyan   #a1eeee
+set $color-blue   #87c0ee
+set $color-purple #bb87bb
+set $color-brown  #a16942
+
+
+# This is my bar configuration. I have it pretty small because I don't look at it all that often.
+bar {
+    height 20
+    position top
+    font pango:DejaVu Sans 10
+    status_command i3status
+    tray_padding 0
+    strip_workspace_numbers yes
+
+    colors {
+        separator  $color-yellow
+        background $color-black
+        statusline $color-purple
+
+        # These are colors for the workspace boxes (for some reason I always forget when I come
+        # back to look at this section).
+        #                   border        backgr         text
+        focused_workspace   $color-white  $color-green   $color-black
+        active_workspace    $color-white  $color-blue    $color-black
+        inactive_workspace  $color-white  $color-gray1   $color-white
+        urgent_workspace    $color-white  $color-red     $color-black
+        binding_mode        $color-white  $color-purple  $color-black
+    }
+}
+
+
+# These are colors for windows. Note that the first four columns are for the window decorations, not
+# the window itself. The child-border column is the border of windows.
+#                        border        backgrnd      text          indicator      child-border
+client.focused           $color-green  $color-black  $color-white  $color-purple  $color-green
+client.unfocused         $color-gray2  $color-black  $color-white  $color-pruple  $color-gray2
+client.focused_inactive  $color-blue   $color-black  $color-white  $color-purple  $color-blue
+client.placeholder       $color-gray2  $color-black  $color-white  $color-purple  $color-gray2
+client.urgent            $color-red    $color-black  $color-white  $color-pruple  $color-red
+client.background        $color-black
+
+
+# I like having small little colored borders to indicate statuses of windows since it helps with
+# finding what I'm looking for.
+new_window pixel 2
+new_float pixel 2
+
+
+# I like having borders always since it's more predictable and still gives valuable information, so
+# I don't hide edge borders.
+hide_edge_borders none
+
+
+
+# [Some Default Configurations I Haven't Gotten Around To Figuring Out The Purpose Of Yet]
+# ------------------------------------------------------------------------------------------------ #
+
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex-autostart --autostart --environment i3
+
+# The combination of xss-lock, nm-applet and pactl is a popular choice, so
+# they are included here as an example. Modify as you see fit.
+
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -c 000000 --composite
+
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+exec --no-startup-id nm-applet
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id "               \
+    pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status\
+"
+
+bindsym XF86AudioLowerVolume exec --no-startup-id "               \
+    pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status\
+"
+
+bindsym XF86AudioMute exec --no-startup-id "                      \
+    pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status\
+"
+
+bindsym XF86AudioMicMute exec --no-startup-id "                       \
+    pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status\
+"
+
