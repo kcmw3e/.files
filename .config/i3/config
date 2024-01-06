@@ -131,6 +131,7 @@ bindsym $sup+$shift+x move scratchpad
 # i3-msg -t get_tree                                      \
 # | jq '.nodes[] | .nodes[] | .nodes[] | .floating_nodes[]\
 #     | select(.scratchpad_state!="none") | .nodes[]      \
+#     | if .window!=null then . else empty end            \
 #     | .window,.window_properties.class,.name'           \
 # | sed 's/\"//g'                                         \
 # | paste - - -                                           \
@@ -149,10 +150,14 @@ bindsym $sup+$shift+x move scratchpad
 #   5. rofi      show the Rofi menu listing scratchpad windows with their titles
 #   6. cut       take just the PID from the Rofi output
 #   7. xargs     create and run an i3-msg command to show the selected scratchpad window
+#
+# Note that if any multi-container (i.e. not a single window) is sent to the scratchpad, this won't
+# be able to bring it forward, so such cases are not shown in the selection.
 bindsym $sup+$shift+$space exec "                             \
     i3-msg -t get_tree                                        \
     | jq '.nodes[] | .nodes[] | .nodes[] | .floating_nodes[]  \
         | select(.scratchpad_state!=\\"none\\") | .nodes[]    \
+        | if .window!=null then . else empty end              \
         | .window,.window_properties.class,.name'             \
     | sed 's/\\\\"//g'                                        \
     | paste - - -                                             \
