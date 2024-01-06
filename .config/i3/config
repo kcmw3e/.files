@@ -23,6 +23,14 @@ set $ws10 10
 
 
 
+# [General i3 settings]
+# ------------------------------------------------------------------------------------------------ #
+# Auto back-and-forth allows pressing focusing the same workspace a second time to switch back to
+# the first
+workspace_auto_back_and_forth yes
+
+
+
 # [Key bindings]
 # ------------------------------------------------------------------------------------------------ #
 # Mod4 is the <Super> (<Meta>, <Windows>) key, some people use <Alt> which is Mod1
