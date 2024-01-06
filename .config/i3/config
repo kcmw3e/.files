@@ -87,11 +87,26 @@ bindsym $sup+$space exec "        \
 
 
 # These are for using marks, which essentially put labels on windows and allow jumping to them
-# directly. The bindings use m for [m]ark and g for [g]oto. The i3-input command is used to ask for
-# a mark name. The i3 example uses the `-l 1` argument for i3-input, but I didn't want to have marks
-# limited to one character so this config allows for any length of mark name.
-bindsym $sup+m exec i3-input -F 'mark %s' -P 'Mark: '
-bindsym $sup+g exec i3-input -F '[con_mark="%s"] focus' -P 'Goto: '
+# directly.
+
+# This binding uses m for [m]ark. I like using Rofi for taking input instead of i3-input since it
+# can be themed. If Rofi isn't an option, an alternative is to just use i3-msg:
+#     `i3-input -F 'mark %s' -p 'Mark: '`
+bindsym $sup+m exec "\
+    rofi -dmenu -p \\"Mark: \\"\
+    | xargs -I \\"MARK\\" i3-msg \\"mark MARK\\"\
+"
+
+# This binding uses g for [g]oto. Again, I like using Rofi for takin input instead of i3-input, but
+# this is an alternative using i3-input:
+#     `i3-input -F '[con_mark=%s]' -p 'Goto: '`
+bindsym $sup+g exec "\
+    i3-msg -t get_marks \
+    | jq '.[] | .' \
+    | sed 's/\\\\"//g' \
+    | rofi -dmenu -p \\"Goto: \\" \
+    | xargs -I \\"MARK\\" i3-msg \\"[con_mark=\\"MARK\\"] focus\\"\
+"
 
 
 # This keybind is for moving windows to the scratchpad. To bring windows back, I use a mode that
