@@ -83,6 +83,14 @@ bindsym $ctrl+$alt+T exec /usr/bin/kitty
 bindsym $sup+$space exec "rofi -modi drun,run -show drun"
 
 
+# These are for using marks, which essentially put labels on windows and allow jumping to them
+# directly. The bindings use m for [m]ark and g for [g]oto. The i3-input command is used to ask for
+# a mark name. The i3 example uses the `-l 1` argument for i3-input, but I didn't want to have marks
+# limited to one character so this config allows for any length of mark name.
+bindsym $sup+m exec i3-input -F 'mark %s' -P 'Mark: '
+bindsym $sup+g exec i3-input -F '[con_mark="%s"] focus' -P 'Goto: '
+
+
 # For changing focus, I prefer the arrow keys, at least while I'm still getting used to using the
 # keyboard more, but as a backup I like the VIM keybinds more than the default, which are:
 #   J K L <Semicolon> as opposed to the VIM-like H J K L
