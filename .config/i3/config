@@ -109,10 +109,19 @@ bindsym $sup+g exec "\
 "
 
 
-# This keybind is for moving windows to the scratchpad. To bring windows back, I use a mode that
-# cycles through them (that way I don't have to use a `scratchpad show` keybinding twice). The mode
-# is defined below in the [Modes] section.
-bindsym $sup+$shift+$minus move scratchpad
+# These keybinds are for using the scratchpad in its most basic form. In the interest of keeping as
+# many bindings one-handed as I can, I chose x for dealings with the scratchpad, plus x looks like a
+# scratch so it makes sense anyway.
+
+# This keybind will show and hide scratchpad windows. It can be a bit annoying to use if trying to
+# get to a specific scratchpad window when there are more than one or two available since it
+# requires multiple pressings to first show, then hide, and then show another window. See the last
+# binding in for scratchpad manipulation for how I adress this.
+bindsym $sup+x scratchpad show
+
+# This follows the rest of my conventions with <Shift> moving containers, so this moves the focused
+# container to the scratchpad.
+bindsym $sup+$shift+x move scratchpad
 
 # I like being able to search my scratchpad instead of cycle through it, so I use Rofi to pop up a
 # search window. The command is adapted from a script I found on Reddit:
@@ -140,7 +149,7 @@ bindsym $sup+$shift+$minus move scratchpad
 #   5. rofi      show the Rofi menu listing scratchpad windows with their titles
 #   6. cut       take just the PID from the Rofi output
 #   7. xargs     create and run an i3-msg command to show the selected scratchpad window
-bindsym $sup+$minus exec "                                    \
+bindsym $sup+$shift+$space exec "                             \
     i3-msg -t get_tree                                        \
     | jq '.nodes[] | .nodes[] | .nodes[] | .floating_nodes[]  \
         | select(.scratchpad_state!=\\"none\\") | .nodes[]    \
