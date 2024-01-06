@@ -80,7 +80,9 @@ bindsym $ctrl+$alt+T exec /usr/bin/kitty
 # The default launcher is dmenu, but I prefer rofi because it automatically detects flatpak apps and
 # is a bit nicer/more modern. The default keybind is $mod+d, but after using MacOS a bit, I have
 # found <Space> is more intuitive to me.
-bindsym $sup+$space exec "rofi -modi drun,run -show drun"
+bindsym $sup+$space exec "        \
+    rofi -modi drun,run -show drun\
+"
 
 
 # These are for using marks, which essentially put labels on windows and allow jumping to them
@@ -273,15 +275,15 @@ bindsym $sup+$ctrl+$f5 restart
 # but I like this more because it feels in-line with the closing of widnows. Note that for now I've
 # left in the confirm message, but I might remove it or change this command at some point. For
 # reference in case I change it and forget to write what the default was (with a shorter message):
-# `exec "                        \
-#   i3-nagbar -t warning         \
-#   -m 'Exit i3?'                \
-#   -B 'Yes, exit.' 'i3-msg exit'\
-#  "`
-bindsym $sup+$ctrl+q exec "      \
-    i3-nagbar -t warning         \
-    -m 'Exit i3?'                \
-    -B 'Yes, exit.' 'i3-msg exit'\
+# ```
+# i3-nagbar -t warning            \
+#    -m 'Exit i3?'                \
+#    -B 'Yes, exit.' 'i3-msg exit'\
+# ```
+bindsym $sup+$ctrl+q exec "          \
+    i3-nagbar -t warning             \
+        -m 'Exit i3?'                \
+        -B 'Yes, exit.' 'i3-msg exit'\
 "
 
 
