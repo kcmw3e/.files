@@ -53,6 +53,7 @@ set $space     space
 set $return    Return
 set $backspace BackSpace
 set $esc       Escape
+set $minus     minus
 
 set $f1  F1
 set $f2  F2
@@ -91,6 +92,50 @@ bindsym $sup+$space exec "        \
 # limited to one character so this config allows for any length of mark name.
 bindsym $sup+m exec i3-input -F 'mark %s' -P 'Mark: '
 bindsym $sup+g exec i3-input -F '[con_mark="%s"] focus' -P 'Goto: '
+
+
+# This keybind is for moving windows to the scratchpad. To bring windows back, I use a mode that
+# cycles through them (that way I don't have to use a `scratchpad show` keybinding twice). The mode
+# is defined below in the [Modes] section.
+bindsym $sup+$shift+$minus move scratchpad
+
+# I like being able to search my scratchpad instead of cycle through it, so I use Rofi to pop up a
+# search window. The command is adapted from a script I found on Reddit:
+#    https://www.reddit.com/r/i3wm/comments/t39tr7/selecting_i3_windows_from_scratchpad_with_rofi/
+# The command, without necessary escapes to work within the i3 config, is here:
+# ```
+# i3-msg -t get_tree                                      \
+# | jq '.nodes[] | .nodes[] | .nodes[] | .floating_nodes[]\
+#     | select(.scratchpad_state!="none") | .nodes[]      \
+#     | .window,.window_properties.class,.name'           \
+# | sed 's/\"//g'                                         \
+# | paste - - -                                           \
+# | rofi -dmenu -i -p "Scratchpad"                        \
+# | cut -f1                                               \
+# | xargs -I "PID" i3-msg "[id=PID] scratchpad show"
+# ```
+#
+# Here's a quick synopsys:
+#   1. i3-msg    get tree of all of the i3 state/windows/whatnot
+#   2. jq        break down the i3-msg output as JSON and navigate it to find scratchpad windows
+#   3. sed       remove `"` marks from the output of jq dor nice displaying in Rofi
+#   4. paste     combine the output lines from jq/sed into one (since jq outputs each JSON field as
+#                its own line, so the window, class, and name are all on separate lines) so that the
+#                Rofi selections will all be on one line with separated fields
+#   5. rofi      show the Rofi menu listing scratchpad windows with their titles
+#   6. cut       take just the PID from the Rofi output
+#   7. xargs     create and run an i3-msg command to show the selected scratchpad window
+bindsym $sup+$minus exec "                                    \
+    i3-msg -t get_tree                                        \
+    | jq '.nodes[] | .nodes[] | .nodes[] | .floating_nodes[]  \
+        | select(.scratchpad_state!=\\"none\\") | .nodes[]    \
+        | .window,.window_properties.class,.name'             \
+    | sed 's/\\\\"//g'                                        \
+    | paste - - -                                             \
+    | rofi -dmenu -i -p \\"Scratchpad\\"                      \
+    | cut -f1                                                 \
+    | xargs -I \\"PID\\" i3-msg \\"[id=PID] scratchpad show\\"\
+"
 
 
 # For changing focus, I prefer the arrow keys, at least while I'm still getting used to using the
