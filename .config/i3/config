@@ -23,6 +23,12 @@ set $ws10 10
 
 
 
+# [Global variables]
+# ------------------------------------------------------------------------------------------------ #
+set $border-px 2
+
+
+
 # [General i3 settings]
 # ------------------------------------------------------------------------------------------------ #
 # Auto back-and-forth allows pressing focusing the same workspace a second time to switch back to
@@ -84,6 +90,12 @@ bindsym $ctrl+$alt+T exec /usr/bin/kitty
 bindsym $sup+$space exec "        \
     rofi -modi drun,run -show drun\
 "
+
+
+# I prefer window titles hidden, but being able to show them sometimes is useful, so this binding
+# cycles through border styles. Unfortunately it has to cycle through the no-border option as well,
+# so it's not quite as simple as just showing and hiding titles.
+bindsym $sup+$minus border toggle $border-px
 
 
 # These are for using marks, which essentially put labels on windows and allow jumping to them
@@ -487,8 +499,8 @@ client.background        $color-black
 
 # I like having small little colored borders to indicate statuses of windows since it helps with
 # finding what I'm looking for.
-new_window pixel 2
-new_float pixel 2
+new_window pixel $border-px
+new_float  pixel $border-px
 
 
 # I like having borders always since it's more predictable and still gives valuable information, so
