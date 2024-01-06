@@ -402,10 +402,10 @@ bar {
 # the window itself. The child-border column is the border of windows.
 #                        border        backgrnd      text          indicator      child-border
 client.focused           $color-green  $color-black  $color-white  $color-purple  $color-green
-client.unfocused         $color-gray2  $color-black  $color-white  $color-pruple  $color-gray2
+client.unfocused         $color-gray2  $color-black  $color-white  $color-purple  $color-gray2
 client.focused_inactive  $color-blue   $color-black  $color-white  $color-purple  $color-blue
 client.placeholder       $color-gray2  $color-black  $color-white  $color-purple  $color-gray2
-client.urgent            $color-red    $color-black  $color-white  $color-pruple  $color-red
+client.urgent            $color-red    $color-black  $color-white  $color-purple  $color-red
 client.background        $color-black
 
 
