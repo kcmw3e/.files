@@ -139,7 +139,7 @@ bindsym $sup+x scratchpad show
 
 # This follows the rest of my conventions with <Shift> moving containers, so this moves the focused
 # container to the scratchpad.
-bindsym $sup+$shift+x move scratchpad
+bindsym $sup+$move+x move scratchpad
 
 # I like being able to search my scratchpad instead of cycle through it, so I use Rofi to pop up a
 # search window. The command is adapted from a script I found on Reddit:
@@ -171,7 +171,7 @@ bindsym $sup+$shift+x move scratchpad
 #
 # Note that if any multi-container (i.e. not a single window) is sent to the scratchpad, this won't
 # be able to bring it forward, so such cases are not shown in the selection.
-bindsym $sup+$shift+$space exec "                             \
+bindsym $sup+$move+$space exec "                             \
     i3-msg -t get_tree                                        \
     | jq '.nodes[] | .nodes[] | .nodes[] | .floating_nodes[]  \
         | select(.scratchpad_state!=\\"none\\") | .nodes[]    \
@@ -319,7 +319,7 @@ bindsym $sup+$move+$tab move container to workspace back_and_forth
 bindsym $sup+f fullscreen toggle
 
 # This binding is also default and is used for killing the focused window.
-bindsym $sup+$shift+q kill
+bindsym $sup+$move+q kill
 
 
 # These key bindings are for changing the tiling mode. None of them are default because I didn't
@@ -413,10 +413,10 @@ mode "window-ctrl" {
     bindsym $move+$down  move down
     bindsym $move+$right move right
 
-    bindsym $shift+w move up
-    bindsym $shift+a move left
-    bindsym $shift+s move down
-    bindsym $shift+d move right
+    bindsym $move+w move up
+    bindsym $move+a move left
+    bindsym $move+s move down
+    bindsym $move+d move right
 
 
     bindsym $ctrl+$left  workspace prev_on_output
