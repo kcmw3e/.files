@@ -82,7 +82,7 @@ set $move Shift
 # This key bind starts a terminal. Note that by default this is $mod+Return, but I prefer the one
 # below, again likely from using other environments first. Also, the default terminal is
 # i3-sensible-terminal, which I have mixed feelings about.
-bindsym $ctrl+$alt+T exec /usr/bin/kitty
+bindsym $ctrl+$alt+T exec /usr/bin/alacritty
 
 
 # The default launcher is dmenu, but I prefer rofi because it automatically detects flatpak apps and
