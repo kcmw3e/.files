@@ -75,10 +75,10 @@ CUSTOM_BIN_DIRS=(
   "${DOT_CARGO_DIR}/bin"
 )
 
-# Add custom install directories to the path
+# Prepend custom command/executable install directories to the path.
 for bin_dir in ${CUSTOM_BIN_DIRS}; do
     if [[ -d "${bin_dir}" ]]; then
-      path+=("${bin_dir}")
+      path=("${bin_dir}" $path)
     fi
 done
 
