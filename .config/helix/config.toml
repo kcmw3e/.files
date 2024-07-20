@@ -1,0 +1,52 @@
+# Helix config
+# Author: Casey Walker
+# ---------------------------------------------------------------------------- #
+theme = "base16-term"
+
+[editor]
+line-number = "relative"
+rulers = [81, 101]
+color-modes = true
+auto-pairs = false
+scrolloff = 10
+middle-click-paste = false
+scroll-lines = 1
+gutters = ["diagnostics", "line-numbers", "spacer", "diff"]
+auto-format = false
+idle-timeout = 0
+preview-completion-insert = false
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.indent-guides]
+# Some other common characters for reference: "▏", "┆", "┊", "⸽", "│".
+render = true
+character = "│"
+
+[editor.whitespace.render]
+tab = "all"
+
+[editor.whitespace.characters]
+tab = "→"
+tabpad = "·"
+
+[editor.file-picker]
+# Show hidden files in the file picker.
+hidden = false
+
+[editor.smart-tab]
+enable = false
+
+[keys.normal]
+# Remove "training wheel" keybinds for the uninitiated.
+up = "no_op"
+down = "no_op"
+left = "no_op"
+right = "no_op"
+pageup = "no_op"
+pagedown = "no_op"
+home = "no_op"
+end = "no_op"

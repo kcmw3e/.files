@@ -1,0 +1,129 @@
+# A better base16 theme for Helix than the default
+# Author: Casey Walker
+#
+# This theme only uses the 16 named base terminal colors. This can be used to
+# adapt the terminal's theme and also Helix's just by modifying the terminal
+# emulator's theme.
+#
+# Do note that there are a few instances where the `"dim"` modifier is used and
+# this may slightly effect some theming, especially when black is close to
+# 0x000000.
+# ---------------------------------------------------------------------------- #
+
+# Inherit anything missing from the normal base16 theme
+inherits = "base16_default"
+
+"ui.background" = { fg="light-gray", bg="black" }
+
+
+# Cursor and selections
+# ---------------------------------------------------------------------------- #
+# All cursor theme options use the `"reversed"` modifier and a foreground color
+# so that the text color doesn't clobber with the background of the cursor. If
+# instead a background color was used, it would be possible for the cursor and
+# text color to be the same (and thus be unreadable).
+
+# Cursors that belong to the primary selection.
+"ui.cursor.primary.normal" = { fg="yellow", modifiers=["reversed"] }
+"ui.cursor.primary.insert" = { fg="green" , modifiers=["reversed"] }
+"ui.cursor.primary.select" = { fg="blue"  , modifiers=["reversed"] }
+
+# Any cursors that belong to selections other than the primary selection.
+"ui.cursor.normal" = { fg="yellow", modifiers=["reversed", "dim"] }
+"ui.cursor.insert" = { fg="green" , modifiers=["reversed", "dim"] }
+"ui.cursor.select" = { fg="blue"  , modifiers=["reversed", "dim"] }
+
+# Underline matching brackets.
+"ui.cursor.match" = { underline={style="line"} }
+
+# Text in the selections that's not the cursor.
+"ui.selection.primary" = { fg="light-gray", bg="gray" }
+"ui.selection"         = { fg="light-gray", bg="gray" }
+
+
+# Gutter, statusline, and friends
+# ---------------------------------------------------------------------------- #
+"ui.debug.breakpoint" = { fg="light-red" }
+
+"ui.linenr"          = { fg="gray" }
+"ui.linenr.selected" = { fg="magenta" }
+
+"ui.statusline" = { fg="light-gray", bg="gray" }
+
+# Statusline of unfocused windows (splits).
+"ui.statusline.inactive" = { fg="black" }
+
+"ui.statusline.normal" = { fg="yellow" }
+"ui.statusline.insert" = { fg="green"  }
+"ui.statusline.select" = { fg="blue"   }
+
+# Borderlines separating windows (splits).
+"ui.window" = { fg="gray" }
+
+# Rulers (like vim colorcolumn).
+"ui.virtual.ruler" = { fg="light-red", bg="red", modifiers=["bold"] }
+
+# Visible whitespace characters (if the config has them rendering).
+"ui.virtual.whitespace" = { fg="light-gray" }
+
+# Assuming "black" is not actual black (e.g. 0x000000), making the indent guides
+# `"dim"` shows them a little darker (which the least-intrusive way I could find
+# to show them).
+"ui.virtual.indent-guide" = { fg="black", modifiers=["dim"] }
+
+# Word wrap indicators shown dim to be less intrusive and magenta since dim
+# black is impossible to see easily.
+"ui.virtual.wrap" = { fg="magenta", modifiers=["dim"] }
+
+
+# Popups, pickers, and friends
+# ---------------------------------------------------------------------------- #
+# Language server documentation and help poups.
+"ui.popup" = { bg="black" }
+
+# Border and information for popups (e.g. title for popups that show keymap
+# hints).
+"ui.popup.info" = { fg="gray" }
+
+# Command promps, popup text, etc.
+"ui.text" = { fg="light-gray"  }
+
+# The currently-selected line in a picker.
+"ui.text.focus"    = { fg="magenta" }
+
+# Any inactive text (e.g. suggestions in the command promp).
+"ui.text.inactive" = { fg="magenta" }
+
+# Text shown in help popups (e.g. keymap hints)
+"ui.text.info" = { fg="magenta" }
+
+# Description box for commands.
+"ui.help" = { fg="magenta" }
+
+# Code and command completion meus.
+"ui.menu" = { fg="gray" }
+
+# Selected completion item.
+"ui.menu.selected" = { fg="magenta" }
+
+# `fg` sets thumb color, `bg` sets track color of scrollbar
+"ui.menu.scroll"   = { fg="magenta", bg="black" }
+
+# Highlighted lines in picker previews.
+"ui.highlight" = { modifiers=["reversed"] }
+
+
+# Language server information
+# ---------------------------------------------------------------------------- #
+# (gutter indicators)
+"error"   = { fg="red"    }
+"warning" = { fg="yellow" }
+"info"    = { fg="blue"   }
+"hint"    = { fg="green"  }
+
+# (inline styling)
+"diagnostic.error"   = { underline={ color="red"       , style="line" } }
+"diagnostic.warning" = { underline={ color="yellow"    , style="line" } }
+"diagnostic.info"    = { underline={ color="blue"      , style="line" } }
+"diagnostic.hint"    = { underline={ color="green"     , style="line" } }
+"diagnostic"         = { underline={ color="light-gray", style="line" } }
