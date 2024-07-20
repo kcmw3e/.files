@@ -1,2 +1,7 @@
-# . files for Casey Walker
+# . files
 
+Author: Casey Walker
+
+The file structure of this repository mimicks that of a user's home directory,
+so it should be fairly easy to add links to the files/directories in this repo
+after cloning (and scripting/automating it should also be fairly simple).
