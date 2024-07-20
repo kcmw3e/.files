@@ -1,0 +1,26 @@
+# Alacritty base-16 dark theme config
+# Author: Casey Walker
+# ---------------------------------------------------------------------------- #
+[colors.primary]
+foreground = "#cccccc"
+background = "#0d0d0d"
+
+[colors.normal]
+black   = "#0d0d0d"
+red     = "#692028"
+green   = "#426942"
+yellow  = "#875b42"
+blue    = "#426987"
+magenta = "#694269"
+cyan    = "#428787"
+white   = "#c0c0c0"
+
+[colors.bright]
+black   = "#333333"
+red     = "#c04242"
+green   = "#a1c087"
+yellow  = "#f4c087"
+blue    = "#87c0ee"
+magenta = "#bb87bb"
+cyan    = "#a1eeee"
+white   = "#f8f8f8"

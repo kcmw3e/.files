@@ -1,0 +1,19 @@
+# Alacritty config
+# Author: Casey Walker
+# ---------------------------------------------------------------------------- #
+import = ["~/.config/alacritty/themes/base16-dark.toml"]
+
+[window]
+# Helps when windows have rounded corners (e.g. on MacOS) so characters don't
+# get cut off.
+padding = { x=10, y=10 }
+
+[scrolling]
+# This is the maximum history allowed.
+history = 100000
+
+[cursor]
+style = { shape="Beam" }
+
+[mouse]
+hide_when_typing = true
