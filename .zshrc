@@ -27,7 +27,7 @@ SAVEHIST=1000000
 # ---------------------------------------------------------------------------- #
 unsetopt autocd extendedglob nomatch notify
 
-# Use Helix as the default text editor
+# Use Helix as the default text editor.
 export EDITOR=hx
 
 
@@ -60,7 +60,7 @@ alias pj="pijul"
 
 # Path variable and environment variables
 # ---------------------------------------------------------------------------- #
-# Keep PATH and path entries unique (e.g. no duplicates)
+# Keep PATH and path entries unique (e.g. no duplicates).
 typeset -U PATH path
 
 DOT_LOCAL_DIR="${HOME}/.local"
@@ -68,7 +68,7 @@ DOT_ZIG_DIR="${HOME}/.zig"
 DOT_CARGO_DIR="${HOME}/.cargo"
 
 # Custom install directories for binaries/executables that aren't installed by a
-# package manager
+# package manager.
 CUSTOM_BIN_DIRS=(
   "${DOT_LOCAL_DIR}/bin"
   "${DOT_ZIG_DIR}/bin"
@@ -82,7 +82,7 @@ for bin_dir in ${CUSTOM_BIN_DIRS}; do
     fi
 done
 
-# Export environment variable for Zig to know where to look for libraries
+# Export environment variable for Zig to know where to look for libraries.
 if [[ -d "$DOT_ZIG_DIR/lib" ]]; then
   export ZIG_LIB_DIR="$DOT_ZIG_DIR/lib"
 fi
@@ -90,7 +90,7 @@ fi
 
 # Command completion scripts
 # ---------------------------------------------------------------------------- #
-# Add scripts to fpath (for things like rstup/cargo/poetry/etc.)
+# Add scripts to fpath (for things like rstup/cargo/poetry/etc.).
 fpath+="${HOME}/.zfunc/completions"
 
 
