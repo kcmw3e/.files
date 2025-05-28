@@ -58,10 +58,13 @@ set $command_exit_confirm ~/.config/sway/scripts/exit-confirm.sh
 set $command_volume_up ~/.config/sway/scripts/volume-control.sh up
 set $command_volume_down ~/.config/sway/scripts/volume-control.sh down
 set $command_volume_mute ~/.config/sway/scripts/volume-control.sh mute
+
 set $command_mic_mute "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
-set $command_media_pause ""
-set $command_media_next ""
-set $command_media_prev ""
+
+set $command_media_play "playerctl play-pause"
+set $command_media_pause "playerctl pause"
+set $command_media_next "playerctl next"
+set $command_media_prev "playerctl previous"
 
 # The command used for launching applications.
 set $command_launch_app "tofi-drun | xargs swaymsg exec --"
@@ -349,10 +352,10 @@ bindsym --locked $volume_mute exec $command_volume_mute
 bindsym --locked $mic_mute exec $command_mic_mute
 
 # Media-related bindings
-bindsym --locked $media_play  exec playerctl play-pause
-bindsym --locked $media_pause exec playerctl pause
-bindsym --locked $media_next  exec playerctl next
-bindsym --locked $media_prev  exec playerctl previous
+bindsym --locked $media_play  exec $command_media_play
+bindsym --locked $media_pause exec $command_media_pause
+bindsym --locked $media_next  exec $command_media_next
+bindsym --locked $media_prev  exec $command_media_prev
 
 
 
