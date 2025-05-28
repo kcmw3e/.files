@@ -69,6 +69,9 @@ set $command_media_prev "playerctl previous"
 # The command used for launching applications.
 set $command_launch_app "tofi-drun | xargs swaymsg exec --"
 
+# Screenshot commands
+set $command_screenshot ~/.config/sway/scripts/screenshot.sh
+set $command_screenshot_region ~/.config/sway/scripts/screenshot.sh -r
 
 # [General settings]
 # ------------------------------------------------------------------------------
@@ -121,6 +124,7 @@ set $right_one_handed d
 set $float backspace
 set $reload f5
 set $kill q
+set $screenshot print
 
 
 # This key bind starts a terminal enumlator. Note that by default this is
@@ -358,6 +362,9 @@ bindsym --locked $media_next  exec $command_media_next
 bindsym --locked $media_prev  exec $command_media_prev
 
 
+# These are key bindings for screenshot-taking.
+bindsym $sup+$screenshot exec $command_screenshot
+bindsym $sup+shift+$screenshot exec $command_screenshot_region
 
 # [Display/Aesthetics]
 # ------------------------------------------------------------------------------------------------ #
