@@ -102,6 +102,12 @@ if [[ -d "$DOT_GO_DIR" ]]; then
   export GOPATH="${DOT_GO_DIR}/bin"
 fi
 
+
+if (( $+commands[foobar] )); then
+  # Set up the shell for using `fnm` properly.
+  eval "$(fnm env --use-on-cd --shell zsh)"
+fi
+
 # Command completion scripts
 # ---------------------------------------------------------------------------- #
 # Add scripts to fpath (for things like rstup/cargo/poetry/etc.).
