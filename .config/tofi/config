@@ -1,0 +1,8 @@
+# Author: Casey Walker
+#
+# tofi configuration
+# ---------------------------------------------------------------------------- #
+
+include="theme"
+
+matching-algorithm=fuzzy
