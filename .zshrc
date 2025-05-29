@@ -16,6 +16,12 @@ setopt share_history
 setopt hist_ignore_dups
 setopt hist_ignore_space
 setopt hist_verify
+
+# Don't store `history` commands
+setopt hist_no_store
+
+setopt hist_no_functions
+setopt hist_verify
 setopt extended_history
 
 HISTFILE=~/.histfile
@@ -66,6 +72,7 @@ typeset -U PATH path
 DOT_LOCAL_DIR="${HOME}/.local"
 DOT_ZIG_DIR="${HOME}/.zig"
 DOT_CARGO_DIR="${HOME}/.cargo"
+DOT_GO_DIR="${HOME}/.go"
 
 # Custom install directories for binaries/executables that aren't installed by a
 # package manager.
@@ -73,6 +80,7 @@ CUSTOM_BIN_DIRS=(
   "${DOT_LOCAL_DIR}/bin"
   "${DOT_ZIG_DIR}/bin"
   "${DOT_CARGO_DIR}/bin"
+  "${DOT_GO_DIR}/bin"
 )
 
 # Prepend custom command/executable install directories to the path.
@@ -87,6 +95,18 @@ if [[ -d "$DOT_ZIG_DIR/lib" ]]; then
   export ZIG_LIB_DIR="$DOT_ZIG_DIR/lib"
 fi
 
+# TODO: check if this is not recommended, and fix it if it's not.
+# Export `GOPATH` so Go puts installed binaries in the same binary directory as
+# itself.
+if [[ -d "$DOT_GO_DIR" ]]; then
+  export GOPATH="${DOT_GO_DIR}/bin"
+fi
+
+
+if (( $+commands[foobar] )); then
+  # Set up the shell for using `fnm` properly.
+  eval "$(fnm env --use-on-cd --shell zsh)"
+fi
 
 # Command completion scripts
 # ---------------------------------------------------------------------------- #
