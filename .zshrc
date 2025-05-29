@@ -21,6 +21,7 @@ setopt hist_verify
 setopt hist_no_store
 
 setopt hist_no_functions
+setopt hist_verify
 setopt extended_history
 
 HISTFILE=~/.histfile
