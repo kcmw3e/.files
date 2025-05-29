@@ -1,0 +1,30 @@
+# Author: Casey Walker
+#
+# tofi theme
+# ---------------------------------------------------------------------------- #
+
+# Window setup
+width = 100%
+height = 100%
+
+outline-width = 0
+border-width = 0
+
+padding-left = 40%
+padding-top = 35%
+
+
+# Font/text/result styling
+font-size = 14
+font = monospace
+
+num-results = 10
+result-spacing = 15
+
+
+# Coloring
+text-color = #c0c0c0
+prompt-color = #694269
+selection-color = #426987
+selection-match-color = #426942
+background-color = #0d0d0dd0

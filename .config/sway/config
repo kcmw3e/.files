@@ -1,0 +1,449 @@
+# Sway config
+# Author: Casey Walker
+# 
+# For a full reference to the Sway config, see the link below:
+#   https://github.com/swaywm/sway/wiki#configuration
+# Also, Sway is well-documented using `man` (try `man 5 sway`).
+# ------------------------------------------------------------------------------
+
+include "/etc/sway/config.d/*"
+
+# The 'monitors' configuration file should be unique to any given setup, and
+# should only be usef for Sway output configuration.
+include "monitors"
+
+# I like to have my keyboard repeat rate pretty responsive, and this is what I
+# came up with after a bit of tuning. I would not recommend going below 150 for
+# the repeat delay as it can make it basically impossible to type anything (and
+# therefore revert to a more reasonable delay) without exiting Sway.
+input type:keyboard {
+    repeat_delay 220
+    repeat_rate 30
+}
+
+
+
+# [Worskpaces]
+# ------------------------------------------------------------------------------
+# these are names for the numbered workspaces. the key bindings to switch to
+# them are configured in the [Key Bindings] section below.
+set $ws1   1
+set $ws2   2
+set $ws3   3
+set $ws4   4
+set $ws5   5
+set $ws6   6
+set $ws7   7
+set $ws8   8
+set $ws9   9
+set $ws10 10
+
+
+
+# [Global variables]
+# ------------------------------------------------------------------------------
+set $border_px 2
+
+# This is the terminal emulator to use when one is needed (mostly just for
+# starting up a terminal). The default terminal emulator is `foot`.
+set $terminal alacritty
+
+# Various commands for easier ergonomics.
+set $command_scratchpad_search ~/.config/sway/scripts/scratchpad-search.sh
+set $command_mark_window ~/.config/sway/scripts/mark-window.sh
+set $command_marks_search ~/.config/sway/scripts/search-marks.sh
+set $command_exit_confirm ~/.config/sway/scripts/exit-confirm.sh
+
+# Various commands for dealing with volume and media control.
+set $command_volume_up ~/.config/sway/scripts/volume-control.sh up
+set $command_volume_down ~/.config/sway/scripts/volume-control.sh down
+set $command_volume_mute ~/.config/sway/scripts/volume-control.sh mute
+
+set $command_mic_mute "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+
+set $command_media_play "playerctl play-pause"
+set $command_media_pause "playerctl pause"
+set $command_media_next "playerctl next"
+set $command_media_prev "playerctl previous"
+
+# The command used for launching applications.
+set $command_launch_app "tofi-drun | xargs swaymsg exec --"
+
+# Screenshot commands
+set $command_screenshot ~/.config/sway/scripts/screenshot.sh
+set $command_screenshot_region ~/.config/sway/scripts/screenshot.sh -r
+
+# Command to lock the screen/session
+set $command_lock ~/.config/sway/scripts/lock.sh
+
+# [General settings]
+# ------------------------------------------------------------------------------
+# Auto back-and-forth allows pressing the keybind for focusing the same
+# workspace a second time to switch back to the first.
+workspace_auto_back_and_forth yes
+
+
+
+# [Key bindings]
+# ------------------------------------------------------------------------------
+# `Mod4` is the <Super> (<Meta>, <Windows>, etc.) key; some people use <Alt>,
+# which is `Mod1`. Also note that most people probably use $mod instead of $sup,
+# but $sup seems to make more sense to me, probably because I come from
+# environments that use such terminology and I am internally making a connection
+# between the functionalities of those environments to how Sway works.
+set $sup Mod4
+
+# Volume- and media-related keys.
+set $volume_up   XF86AudioRaiseVolume
+set $volume_down XF86AudioLowerVolume
+set $volume_mute XF86AudioMute
+
+set $mic_mute XF86AudioMicMute
+
+set $media_play  XF86AudioPlay
+set $media_pause XF86AudioPause
+set $media_next  XF86AudioNext
+set $media_prev  XF86AudioPrev
+
+# This is the movement modifier key, which means to "physically" move things
+# around (e.g. a window in various directions or to the scratchpad, etc.).
+set $move Shift
+
+# These are the keys that will always be used for any directional input.
+set $left  h
+set $up    j
+set $down  k
+set $right l
+
+# I like to keep around some one-handed bindings for common operations as well,
+# so since I grew up playing games where `w`, `a`, `s`, and `d` are used for
+# moving, I keep them here as alternative movements.
+set $left_one_handed  a
+set $up_one_handed    w
+set $down_one_handed  s
+set $right_one_handed d
+
+# These are more abstract meaning bindings.
+set $float backspace
+set $reload f5
+set $kill q
+set $screenshot print
+
+
+# This key bind starts a terminal enumlator. Note that by default this is
+# `$mod+Return`, but I prefer the one below, again likely from using other
+# environments first.
+bindsym control+alt+t exec $terminal
+
+
+# The default launcher is `wmenu-run`, but I prefer `tofi-drun` because it
+# automatically detects desktop apps (which is what I'm typically trying to
+# launch). The default keybind is `$mod+d`, but after using MacOS a bit, I have
+# found `<Space>` is more intuitive to me for this kind of navigation.
+bindsym $sup+space exec $command_launch_app
+
+
+# I prefer window titles hidden, but being able to show them sometimes is
+# useful, so this binding cycles through border styles. Unfortunately it has to
+# cycle through the no-border option as well, so it's not quite as simple as
+# just showing and hiding titles.
+bindsym $sup+minus border toggle $border_px
+
+
+# These are for using marks, which essentially put labels on windows and allow
+# jumping to them directly. My typical workflow for these is to start apps that
+# I want in the background and will want to pop up in any workspace; so I mark
+# the app and then send it to the scratchpad (see the mark searching command I
+# have for how this works out).
+
+# This binding uses `m` for [m]ark.
+bindsym $sup+m exec $command_mark_window
+
+
+# This binding uses g for [g]oto.
+bindsym $sup+g exec $command_marks_search
+
+
+# This binding toggles a window's sticky-ness, which lets it stay showing even when switching
+# between workspaces. I use <Slash> because it looks like a stick.
+bindsym $sup+slash sticky toggle
+
+
+# These keybinds are for using the scratchpad in its most basic form. In the
+# interest of keeping as many bindings one-handed as I can, I chose `x` for
+# dealings with the scratchpad, plus `x` looks like a scratch so it makes sense
+# anyway.
+
+# This keybind will show and hide scratchpad windows. It can be a bit annoying
+# to use if trying to get to a specific scratchpad window when there are more
+# than one or two available since it requires multiple pressings to first
+# show, then hide, and then show another window. This is why I use marks and
+# have a scratchpad search command (see below).
+bindsym $sup+x scratchpad show
+
+# This follows the rest of my conventions with `<Shift>` moving containers, so
+# this moves the focused container to the scratchpad.
+bindsym $sup+$move+x move scratchpad
+
+# I like being able to search my scratchpad instead of cycling through it, so I
+# use a script to pop up a window that lets me search through all of the windows
+# I have in the scratchpad. Note that if any multi-container (i.e. not a single
+# window) is sent to the scratchpad, this won't be able to bring it forward, so
+# such cases are not shown in the selection.
+bindsym $sup+$move+space exec $command_scratchpad_search
+
+
+# These are key bindings for changing window focus.
+bindsym $sup+$left  focus left
+bindsym $sup+$down  focus down
+bindsym $sup+$up    focus up
+bindsym $sup+$right focus right
+
+bindsym $sup+$left_one_handed  focus left
+bindsym $sup+$down_one_handed  focus down
+bindsym $sup+$up_one_handed     focus up
+bindsym $sup+$right_one_handed focus right
+
+# This keybind focuses the parent container (`p` for [p]arent). The default is
+# `$mod+a`. Since I use that for movement, and because I think this one makes
+# more sense, I use it instead.
+bindsym $sup+p focus parent
+
+# This keybind focuses the last-focused child container (`c` for [c]hild).
+bindsym $sup+c focus child
+
+
+# These bindings are for resizing without entering a new mode. The default
+# requires pressing `$mod+r` in order to enter the resizing mode, but I found it
+# a bit annoying to have to enter a mode every time I needed a resize. These
+# bindings use the same keys I use for navigation, with the same alternate
+# options.
+bindsym $sup+alt+$left  resize shrink width  15 px or 1 ppt
+bindsym $sup+alt+$up    resize grow   height 15 px or 1 ppt
+bindsym $sup+alt+$down  resize shrink height 15 px or 1 ppt
+bindsym $sup+alt+$right resize grow   width  15 px or 1 ppt
+
+bindsym $sup+alt+$left_one_handed  resize shrink width  15 px or 1 ppt
+bindsym $sup+alt+$up_one_handed    resize grow   height 15 px or 1 ppt
+bindsym $sup+alt+$down_one_handed  resize shrink height 15 px or 1 ppt
+bindsym $sup+alt+$right_one_handed resize grow   width  15 px or 1 ppt
+
+
+# Now for moving containers, it's the exact same as changing focus but with the
+# movement modifier held.
+bindsym $sup+$move+$left  move left
+bindsym $sup+$move+$up    move up
+bindsym $sup+$move+$down  move down
+bindsym $sup+$move+$right move right
+
+bindsym $sup+$move+$left_one_handed  move left
+bindsym $sup+$move+$up_one_handed    move up
+bindsym $sup+$move+$down_one_handed  move down
+bindsym $sup+$move+$right_one_handed move right
+
+# This is a typical Linux desktop trick that allows moving a window by clicking
+# anywhere on the window when holding a particular key (in my case `$sup`, by
+# default `$mod`). Note that it only applies to floating windows for free
+# movement, but does allow moving tiled windows around in their tiled
+# configuration. It also allows for resizing using right click.
+floating_modifier $sup
+
+
+# These keybinds are for working with workspaces.
+
+# These move the focus.
+bindsym $sup+1 workspace number $ws1
+bindsym $sup+2 workspace number $ws2
+bindsym $sup+3 workspace number $ws3
+bindsym $sup+4 workspace number $ws4
+bindsym $sup+5 workspace number $ws5
+bindsym $sup+6 workspace number $ws6
+bindsym $sup+7 workspace number $ws7
+bindsym $sup+8 workspace number $ws8
+bindsym $sup+9 workspace number $ws9
+bindsym $sup+0 workspace number $ws10
+
+# These move containers, similar to the above but between workspaces.
+bindsym $sup+$move+1 move container to workspace number $ws1
+bindsym $sup+$move+2 move container to workspace number $ws2
+bindsym $sup+$move+3 move container to workspace number $ws3
+bindsym $sup+$move+4 move container to workspace number $ws4
+bindsym $sup+$move+5 move container to workspace number $ws5
+bindsym $sup+$move+6 move container to workspace number $ws6
+bindsym $sup+$move+7 move container to workspace number $ws7
+bindsym $sup+$move+8 move container to workspace number $ws8
+bindsym $sup+$move+9 move container to workspace number $ws9
+bindsym $sup+$move+0 move container to workspace number $ws10
+
+# These bindings are not standard, but I like them for switching between
+# workspaces without having to use the number keys, and they provide *similar*
+# functionality to the typical `<Alt>+<Tab>`.
+bindsym $sup+control+$left  workspace prev_on_output
+bindsym $sup+control+$right workspace next_on_output
+
+bindsym $sup+control+$left_one_handed  workspace prev_on_output
+bindsym $sup+control+$right_one_handed workspace next_on_output
+
+# These allow moving containers like the above `<Alt>+<Tab>`-style bindings.
+bindsym $sup+control+$move+$left  move container to workspace prev_on_output
+bindsym $sup+control+$move+$right move container to workspace next_on_output
+
+bindsym $sup+control+$move+$left_one_handed \
+    move container to workspace prev_on_output
+
+bindsym $sup+control+$move+$right_one_handed \
+    move container to workspace next_on_output
+
+# These bindings are for more `<Alt>+<Tab>`-like behavior, but can sadly only
+# work with two workspaces that I've been able to figure out.
+bindsym $sup+tab workspace back_and_forth
+bindsym $sup+$move+tab move container to workspace back_and_forth
+
+# This binding simply toggles fullscreen or not.
+bindsym $sup+f fullscreen toggle
+
+# This binding is used for killing the focused window. I use the movement
+# modifier because it's more like I'm moving a window to the grave.
+bindsym $sup+$move+$kill kill
+
+
+# These key bindings are for changing the tiling mode. None of them are default
+# because I didn't think the default was intuitive (to be honest I think the
+# only intuitive one of mine is the tab mode, but I wanted to keep them grouped
+# together on the keyboard).
+#   `t` for [t]abbed
+#   `y` for stack, because y is right next to t, which makes it stacking, right?
+#   `r` for [r]otate, which is similar to toggling the spit (i.e. rotation of
+#       the split)
+bindsym $sup+t layout tabbed
+bindsym $sup+y layout stacking
+bindsym $sup+r layout toggle split
+
+# These split vertical and horizontal, respectively. Since I use `h` for "left"
+# things, `b` is the next best choice since it's right next to `v` on a Qwerty
+# keyboard.
+bindsym $sup+v split v
+bindsym $sup+b split h
+
+
+# These bindings are for floating-related operations.
+
+# This simply toggles the focused container between floating and not.
+bindsym $sup+$move+$float floating toggle
+
+# This binding toggles the focus between the last-focused floating container and
+# the last-focused tiled container.
+bindsym $sup+$float focus mode_toggle
+
+
+# These are bindings that are more for interacting with Sway itself (e.g. reload
+# configuration, restart, exit...).
+
+bindsym $sup+$reload reload
+
+# I use the `<Control>` modifier here mostly just because it feels right. The
+# other modifiers didn't seem to make as much sense to me.
+bindsym $sup+control+$reload restart
+
+# Exit Sway, with confirmation.
+bindsym $sup+control+$kill exec $command_exit_confirm
+
+
+# These are key bindings for volume and media control.
+
+# Volume-related bindings
+bindsym --locked $volume_up   exec $command_volume_up
+bindsym --locked $volume_down exec $command_volume_down
+bindsym --locked $volume_mute exec $command_volume_mute
+
+bindsym --locked $mic_mute exec $command_mic_mute
+
+# Media-related bindings
+bindsym --locked $media_play  exec $command_media_play
+bindsym --locked $media_pause exec $command_media_pause
+bindsym --locked $media_next  exec $command_media_next
+bindsym --locked $media_prev  exec $command_media_prev
+
+
+# These are key bindings for screenshot-taking.
+bindsym $sup+$screenshot exec $command_screenshot
+bindsym $sup+shift+$screenshot exec $command_screenshot_region
+
+
+# This is the command I use for locking the screen/session.
+bindsym $sup+control+escape exec $command_lock
+
+
+
+# [Display/Aesthetics]
+# ------------------------------------------------------------------------------------------------ #
+
+# This sets the font used in various places (such as title bars). DejaVu is one
+# of my favorites.
+font pango:DejaVu Sans Mono 8
+
+
+# This is the 16-color palette I use everywhere. It's similar to how most
+# terminal emulators let you set colors, but instead of a light+dark for named
+# colors I'm just doing shades of gray and one shade of named colors.
+
+# These are the grayscale colors.
+set $color_black #0d0d0d
+set $color_gray0 #202020
+set $color_gray1 #333333
+set $color_gray2 #424242
+set $color_gray3 #878787
+set $color_gray4 #c0c0c0
+set $color_gray5 #eeeeee
+set $color_white #f4f4f4
+
+# These are the named colors.
+set $color_red    #c04242
+set $color_orange #dd8769
+set $color_yellow #f4c087
+set $color_green  #a1c087
+set $color_cyan   #a1eeee
+set $color_blue   #87c0ee
+set $color_purple #bb87bb
+set $color_brown  #a16942
+
+
+# Start up the bar.
+exec --no-startup-id waybar
+
+# These are colors for windows. Note that the first four columns are for the
+# window decorations, not the window itself. The child-border column is the
+# border of windows.
+#                        border        backgrnd      text          indicator      child-border
+client.focused           $color_green  $color_black  $color_white  $color_purple  $color_green
+client.unfocused         $color_gray2  $color_black  $color_white  $color_purple  $color_gray2
+client.focused_inactive  $color_blue   $color_black  $color_white  $color_purple  $color_blue
+client.placeholder       $color_gray2  $color_black  $color_white  $color_purple  $color_gray2
+client.urgent            $color_red    $color_black  $color_white  $color_purple  $color_red
+client.background        $color_black
+
+
+# I like having small little colored borders to indicate statuses of windows
+# since it helps with finding what I'm looking for.
+default_border          pixel $border_px
+default_floating_border pixel $border_px
+
+
+# I like having borders always since it's more predictable and still gives
+# valuable information, so I don't hide edge borders.
+hide_edge_borders none
+
+
+
+# [Various on-startup programs]
+# ------------------------------------------------------------------------------------------------ #
+
+# Applet to appear in the bar for handling network connection things.
+exec nm-applet
+
+# Start up Fcitx5 for keyboard inputs (e.g., I have a Japanese keyboard input
+# enabled).
+exec fcitx5
+
+# For idle timeouts and locking after some time of inactivity.
+exec swayidle -w
