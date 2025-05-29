@@ -16,6 +16,11 @@ setopt share_history
 setopt hist_ignore_dups
 setopt hist_ignore_space
 setopt hist_verify
+
+# Don't store `history` commands
+setopt hist_no_store
+
+setopt hist_no_functions
 setopt extended_history
 
 HISTFILE=~/.histfile
