@@ -73,6 +73,9 @@ set $command_launch_app "tofi-drun | xargs swaymsg exec --"
 set $command_screenshot ~/.config/sway/scripts/screenshot.sh
 set $command_screenshot_region ~/.config/sway/scripts/screenshot.sh -r
 
+# Command to lock the screen/session
+set $command_lock ~/.config/sway/scripts/lock.sh
+
 # [General settings]
 # ------------------------------------------------------------------------------
 # Auto back-and-forth allows pressing the keybind for focusing the same
@@ -365,6 +368,12 @@ bindsym --locked $media_prev  exec $command_media_prev
 # These are key bindings for screenshot-taking.
 bindsym $sup+$screenshot exec $command_screenshot
 bindsym $sup+shift+$screenshot exec $command_screenshot_region
+
+
+# This is the command I use for locking the screen/session.
+bindsym $sup+control+escape exec $command_lock
+
+
 
 # [Display/Aesthetics]
 # ------------------------------------------------------------------------------------------------ #
