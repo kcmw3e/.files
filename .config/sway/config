@@ -111,8 +111,8 @@ set $move Shift
 
 # These are the keys that will always be used for any directional input.
 set $left  h
-set $up    j
-set $down  k
+set $up    k
+set $down  j
 set $right l
 
 # I like to keep around some one-handed bindings for common operations as well,
