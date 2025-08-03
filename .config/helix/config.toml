@@ -15,6 +15,7 @@ gutters = ["diagnostics", "line-numbers", "spacer", "diff"]
 auto-format = false
 idle-timeout = 0
 preview-completion-insert = false
+continue-comments = false
 
 [editor.cursor-shape]
 insert = "bar"
