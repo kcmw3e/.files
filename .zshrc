@@ -103,7 +103,7 @@ if [[ -d "$DOT_GO_DIR" ]]; then
 fi
 
 
-if (( $+commands[foobar] )); then
+if (( $+commands[fnm] )); then
   # Set up the shell for using `fnm` properly.
   eval "$(fnm env --use-on-cd --shell zsh)"
 fi
