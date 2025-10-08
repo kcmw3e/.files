@@ -12,10 +12,10 @@ set -e
 # 3. Remove literal `"` marks from the output.
 # 4. Get a selection from the user for which mark to focus on.
 mark=$(
-    swaymsg -t get_marks        \
-  | jq '.[]'                    \
-  | sed 's/\"//g'               \
-  | rofi -dmenu -p 'Goto: '     \
+    swaymsg -t get_marks                                                       \
+  | jq '.[]'                                                                   \
+  | sed 's/\"//g'                                                              \
+  | rofi -dmenu -p 'Goto: '                                                    \
 )
 
 swaymsg [con_mark=${mark}] focus

@@ -30,12 +30,12 @@ jq_script='
 # 5. Get a selection from the user for which window to focus.
 # 6. Get the first field (PID) of the selected window.
 pid=$(
-    swaymsg -t get_tree --raw         \
-  | jq "${jq_script}"                 \
-  | paste - - -                       \
-  | sed 's/\"//g'                     \
-  | rofi -dmenu -p "Scratchpad: "     \
-  | cut -f1                           \
+    swaymsg -t get_tree --raw                                                  \
+  | jq "${jq_script}"                                                          \
+  | paste - - -                                                                \
+  | sed 's/\"//g'                                                              \
+  | rofi -dmenu -p "Scratchpad: "                                              \
+  | cut -f1                                                                    \
 )
 
 swaymsg [pid=${pid}] scratchpad show
