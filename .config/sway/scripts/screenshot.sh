@@ -5,6 +5,8 @@
 # supplied, the screenshot will be taken as a selected region of the screen.
 # ------------------------------------------------------------------------------
 
+set -e
+
 function play_shutter_sound() {
   paplay /usr/share/sounds/freedesktop/stereo/camera-shutter.oga
 }
