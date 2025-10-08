@@ -15,7 +15,7 @@ mark=$(
     swaymsg -t get_marks                                                       \
   | jq '.[]'                                                                   \
   | sed 's/\"//g'                                                              \
-  | rofi -dmenu -p 'Goto: '                                                    \
+  | rofi -dmenu -p 'Goto: ' -no-custom                                         \
 )
 
 swaymsg [con_mark=${mark}] focus
