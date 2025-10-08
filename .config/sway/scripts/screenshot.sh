@@ -48,4 +48,4 @@ case $1 in
   ;;
 esac
 
-notify-send "${output_filename}"
+notify-send "${output_filepath}"
