@@ -2,7 +2,7 @@
 # Author: Casey Walker
 #
 # Sway script to search for all windows in the scratchpad and focus one using
-# `tofi` for input.
+# `rofi` for input.
 #
 # This is adapted from a post I saw on Reddit:
 #    https://www.reddit.com/r/i3wm/comments/t39tr7/selecting_i3_windows_from_scratchpad_with_rofi/
@@ -34,7 +34,7 @@ pid=$(
   | jq "${jq_script}"                 \
   | paste - - -                       \
   | sed 's/\"//g'                     \
-  | tofi --prompt-text="Scratchpad: " \
+  | rofi -dmenu -p "Scratchpad: "     \
   | cut -f1                           \
 )
 

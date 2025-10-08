@@ -67,7 +67,7 @@ set $command_media_next "playerctl next"
 set $command_media_prev "playerctl previous"
 
 # The command used for launching applications.
-set $command_launch_app "tofi-drun | xargs swaymsg exec --"
+set $command_launch_app "rofi -modes drun -show drun | xargs swaymsg exec --"
 
 # Screenshot commands
 set $command_screenshot ~/.config/sway/scripts/screenshot.sh
@@ -136,7 +136,7 @@ set $screenshot print
 bindsym control+alt+t exec $terminal
 
 
-# The default launcher is `wmenu-run`, but I prefer `tofi-drun` because it
+# The default launcher is `wmenu-run`, but I prefer `rofi` because it
 # automatically detects desktop apps (which is what I'm typically trying to
 # launch). The default keybind is `$mod+d`, but after using MacOS a bit, I have
 # found `<Space>` is more intuitive to me for this kind of navigation.

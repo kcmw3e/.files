@@ -1,7 +1,7 @@
 #!/bin/sh
 # Author: Casey Walker
 #
-# Sway script to search for marked windows and focus one using `tofi` for input.
+# Sway script to search for marked windows and focus one using `rofi` for input.
 # ------------------------------------------------------------------------------
 
 set -e
@@ -15,7 +15,7 @@ mark=$(
     swaymsg -t get_marks        \
   | jq '.[]'                    \
   | sed 's/\"//g'               \
-  | tofi --prompt-text='Goto: ' \
+  | rofi -dmenu -p 'Goto: '     \
 )
 
 swaymsg [con_mark=${mark}] focus
