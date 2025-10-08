@@ -13,7 +13,7 @@ function play_shutter_sound() {
 
 readonly datetime=$(date +%Y-%m-%d_%H-%M-%S)
 readonly output_filename="screenshot-${datetime}.png"
-readonly output_filepath="${HOME}/Downloads/${output_filename}"
+readonly output_filepath="${HOME}/screenshots/${output_filename}"
 
 function take_fullscreen_screenshot() {
     grim -t png "${output_filepath}"
