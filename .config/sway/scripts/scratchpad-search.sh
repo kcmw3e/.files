@@ -19,7 +19,7 @@ jq_script='
   | select(.scratchpad_state!="none")
   | select(.name!=null)
   | select(.pid!=null)
-  | .pid,.name,if .marks!=[] then .marks[] else "" end
+  | .pid,if .marks!=[] then .marks[] else "" end,.name
 '
 
 # The selection process essentially works as follows:
