@@ -34,6 +34,7 @@ case $1 in
 esac
 
 readonly output_filepath=$(get_filepath)
+mkdir -p "${output_dirpath}"
 
 if [[ -v region ]]; then
   grim -g "${region}" -t png "${output_filepath}"
