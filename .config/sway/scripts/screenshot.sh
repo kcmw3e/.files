@@ -12,10 +12,17 @@ function play_shutter_sound() {
 }
 
 readonly datetime=$(date +%Y-%m-%d_%H-%M-%S)
-readonly output_filename="screenshot-${datetime}.png"
-readonly output_filepath="${HOME}/screenshots/${output_filename}"
+readonly output_dirpath="${HOME}/screenshots"
+readonly default_output_filename="screenshot-${datetime}.png"
 
-
+function get_filepath() {
+  # TODO: handle when the file already exists
+  readonly output_filename=$(
+    printf '%s\n' $default_output_filename | rofi -dmenu -p 'File name: '
+  )
+  readonly output_filepath="${output_dirpath}/${output_filename}"
+  printf '%s' "${output_filepath}"
+}
 
 case $1 in
   -r | --region)
@@ -25,6 +32,8 @@ case $1 in
     # Nothing to do otherwise
   ;;
 esac
+
+readonly output_filepath=$(get_filepath)
 
 if [[ -v region ]]; then
   grim -g "${region}" -t png "${output_filepath}"
