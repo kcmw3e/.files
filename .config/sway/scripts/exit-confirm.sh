@@ -8,7 +8,7 @@
 set -e
 
 # Prompt for user to select "Yes" or "No".
-option=$(printf "Yes\nNo\n" | tofi --prompt='Exit Sway? ')
+option=$(printf "Yes\nNo\n" | rofi -dmenu -p 'Exit Sway? ')
 
 if [ ${option} == "Yes" ]; then
   swaymsg exit

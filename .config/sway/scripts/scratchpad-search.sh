@@ -2,7 +2,7 @@
 # Author: Casey Walker
 #
 # Sway script to search for all windows in the scratchpad and focus one using
-# `tofi` for input.
+# `rofi` for input.
 #
 # This is adapted from a post I saw on Reddit:
 #    https://www.reddit.com/r/i3wm/comments/t39tr7/selecting_i3_windows_from_scratchpad_with_rofi/
@@ -19,7 +19,7 @@ jq_script='
   | select(.scratchpad_state!="none")
   | select(.name!=null)
   | select(.pid!=null)
-  | .pid,.name,if .marks!=[] then .marks[] else "" end
+  | .pid,if .marks!=[] then .marks[] else "" end,.name
 '
 
 # The selection process essentially works as follows:
@@ -30,12 +30,12 @@ jq_script='
 # 5. Get a selection from the user for which window to focus.
 # 6. Get the first field (PID) of the selected window.
 pid=$(
-    swaymsg -t get_tree --raw         \
-  | jq "${jq_script}"                 \
-  | paste - - -                       \
-  | sed 's/\"//g'                     \
-  | tofi --prompt-text="Scratchpad: " \
-  | cut -f1                           \
+    swaymsg -t get_tree --raw                                                  \
+  | jq "${jq_script}"                                                          \
+  | paste - - -                                                                \
+  | sed 's/\"//g'                                                              \
+  | rofi -dmenu -p "Scratchpad: "                                              \
+  | cut -f1                                                                    \
 )
 
 swaymsg [pid=${pid}] scratchpad show
